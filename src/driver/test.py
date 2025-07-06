@@ -1,5 +1,5 @@
 from RPi import GPIO
-import stepper
+from ..driver import stepper
 
 def test_stepper():
     dir_pin = 2
