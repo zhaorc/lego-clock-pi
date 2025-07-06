@@ -1,5 +1,5 @@
 from RPi import GPIO
-from ..driver import stepper
+from driver import stepper
 
 def test_stepper():
     dir_pin = 2
@@ -10,3 +10,6 @@ def test_stepper():
     m1.run(speed, steps)
 
     GPIO.cleanup()
+
+if __name__ == "__main__":
+    test_stepper()
