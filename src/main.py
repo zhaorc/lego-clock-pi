@@ -58,7 +58,7 @@ def show_time():
             save_time_str("".join(hhmm))
 
 def main():
-    logging.basicConfig(filename="/home/pi/lego-clock/log.txt", level=logging.DEBUG)
+    logging.basicConfig(level=logging.DEBUG)
     init_stepper()
     while (True):
         show_time()
