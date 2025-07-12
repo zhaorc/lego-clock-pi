@@ -43,7 +43,10 @@ def calculate_steps(now_time, saved_time):
 
 def show_time():
     for motor_num in (3, 2, 1, 0):
+        ##XXX
         logger.info("motor_num={}".format(motor_num))
+        logger.info("motors.size={}".format(len(motors)))
+
         saved_time_str = read_time_str()
         now_time = time.strftime("%H%M")[motor_num]
         saved_time = saved_time_str[motor_num]
