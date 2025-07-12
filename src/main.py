@@ -44,7 +44,7 @@ def calculate_steps(now_time, saved_time):
     distance = now_time_value - saved_time_value
     if distance < 0:
         distance += 10
-    return m_steps / 10 * distance
+    return int(m_steps / 10 * distance)
 
 def show_time(m_list):
     for motor_num in (3, 2, 1, 0):
@@ -56,6 +56,9 @@ def show_time(m_list):
         now_time = time.strftime("%H%M")[motor_num]
         saved_time = saved_time_str[motor_num]
         run_steps = calculate_steps(now_time, saved_time)
+        ## XXX
+        logger.info("run_steps={}".format(run_steps))
+
         if run_steps is not None:
             m_list[motor_num].run(run_steps)
             hhmm = list(saved_time_str)
