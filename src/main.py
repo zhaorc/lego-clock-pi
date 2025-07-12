@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 file_name = "/home/pi/lego-clock/time.txt"
 
 m_speed = 30
-m_steps = 21 * 20 * 80 * 200 * 32
+m_steps =  200 * 32
 
 def read_time_str():
     with open(file_name, "r") as f:
