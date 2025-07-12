@@ -3,7 +3,7 @@ import time
 from driver import stepper
 
 logger = logging.getLogger(__name__)
-file_name = "/usr/lego-clock/time.txt"
+file_name = "/home/pi/lego-clock/time.txt"
 
 m_speed = 30
 m_steps = 21 * 20 * 80 * 200 * 32
@@ -54,7 +54,7 @@ def show_time():
             save_time_str("".join(hhmm))
 
 def main():
-    logging.basicConfig(filename="/usr/lego-clock/log.txt", level=logging.DEBUG)
+    logging.basicConfig(filename="/home/pi/lego-clock/log.txt", level=logging.DEBUG)
     init_stepper()
     while (True):
         show_time()
