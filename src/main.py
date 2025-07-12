@@ -11,8 +11,6 @@ m_steps =  int((80 / 21) * (80 / 20) * 200 * 32)
 def read_time_str():
     with open(file_name, "r") as f:
         time_str = f.read()
-        ## XXX
-        logger.info("read_time_str={}".format(time_str))
         return time_str
 
 def save_time_str(hhmm):
@@ -46,9 +44,6 @@ def calculate_steps(now_time, saved_time):
 
 def show_time(m_list):
     for motor_num in (3, 2, 1, 0):
-        ## XXX
-        logger.info("motor_num={}".format(motor_num))
-
         saved_time_str = read_time_str()
         now_time = time.strftime("%H%M")[motor_num]
         saved_time = saved_time_str[motor_num]
@@ -56,7 +51,7 @@ def show_time(m_list):
 
         if run_steps is not None:
             ## XXX
-            logger.info("run_steps={}".format(run_steps))
+            logger.info("motor_num={}, saved_time_str={}, now_time={}, run_steps={}".format(motor_num, saved_time_str, now_time, run_steps))
             m_list[motor_num].run(run_steps)
             hhmm = list(saved_time_str)
             hhmm[motor_num] = now_time
