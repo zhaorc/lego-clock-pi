@@ -12,15 +12,13 @@ motors = []
 def read_time_str():
     with open(file_name, "r") as f:
         time_str = f.read()
-        hh_mm = list(time_str)
         logger.info("read_time_str={}".format(time_str))
+        return time_str
 
-        return hh_mm
-
-def save_time_str(hh_mm):
+def save_time_str(hhmm):
     with open(file_name,"w") as f:
-        f.write(hh_mm)
-        logger.info("save_time_str={}".format(hh_mm))
+        f.write(hhmm)
+        logger.info("save_time_str={}".format(hhmm))
 
 def init_stepper():
     dir_pin = 2
@@ -45,11 +43,15 @@ def calculate_steps(now_time, saved_time):
 
 def show_time():
     for motor_num in (3, 2, 1, 0):
+        saved_time_str = read_time_str()
         now_time = time.strftime("%H")[motor_num]
-        saved_time = read_time_str()[motor_num]
+        saved_time = saved_time_str[motor_num]
         run_steps = calculate_steps(now_time, saved_time)
         if run_steps is not None:
             motors[motor_num].run(run_steps)
+            hhmm = list(saved_time_str)
+            hhmm[motor_num] = now_time
+            save_time_str("".join(hhmm))
 
 def main():
     logging.basicConfig(filename="/usr/lego-clock/log.txt", level=logging.DEBUG)
