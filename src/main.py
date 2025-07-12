@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 file_name = "/home/pi/lego-clock/time.txt"
 
 m_speed = 30
-m_steps =  200 * 32
+m_steps =  int((80 / 21) * (80 / 20) * 200 * 32)
 
 def read_time_str():
     with open(file_name, "r") as f:
@@ -31,8 +31,6 @@ def init_stepper():
         stepper.Stepper(dir_pin, step_pin, m_speed, m_steps, relay_pin[2]),
         stepper.Stepper(dir_pin, step_pin, m_speed, m_steps, relay_pin[3]),
     ]
-    ## XXX
-    logger.info("m_list.size={}".format(len(m_list)))
 
     return m_list
 
@@ -50,16 +48,15 @@ def show_time(m_list):
     for motor_num in (3, 2, 1, 0):
         ## XXX
         logger.info("motor_num={}".format(motor_num))
-        logger.info("m_list.size={}".format(len(m_list)))
 
         saved_time_str = read_time_str()
         now_time = time.strftime("%H%M")[motor_num]
         saved_time = saved_time_str[motor_num]
         run_steps = calculate_steps(now_time, saved_time)
-        ## XXX
-        logger.info("run_steps={}".format(run_steps))
 
         if run_steps is not None:
+            ## XXX
+            logger.info("run_steps={}".format(run_steps))
             m_list[motor_num].run(run_steps)
             hhmm = list(saved_time_str)
             hhmm[motor_num] = now_time
