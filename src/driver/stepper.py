@@ -53,14 +53,12 @@ class Stepper:
         GPIO.setup(relay_pin, GPIO.OUT, initial=GPIO.LOW)
         self.__sleep_time = 30000000 / speed / steps
 
-    def run(self, speed, steps):
+    def run(self, steps):
         """
         转steps步
-        :param speed: 转速 RPM
         :param steps: steps>0正转, steps<0反转
         :return:
         """
-        self.__sleep_time = 30000000 / speed / self.__steps
         run_steps = steps
         if steps > 0:
             GPIO.output(self.__dir_pin, GPIO.HIGH)
