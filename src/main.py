@@ -7,29 +7,33 @@ file_name = "/home/pi/lego-clock/time.txt"
 
 m_speed = 30
 m_steps = 21 * 20 * 80 * 200 * 32
-motors = []
+m_list = []
 
 def read_time_str():
     with open(file_name, "r") as f:
         time_str = f.read()
+        ## XXX
         logger.info("read_time_str={}".format(time_str))
         return time_str
 
 def save_time_str(hhmm):
     with open(file_name,"w") as f:
         f.write(hhmm)
+        ## XXX
         logger.info("save_time_str={}".format(hhmm))
 
 def init_stepper():
     dir_pin = 2
     step_pin = 3
     relay_pin = [19, 16, 26, 20]
-    motors = [
+    m_list = [
         stepper.Stepper(dir_pin, step_pin, m_speed, m_steps, relay_pin[0]),
         stepper.Stepper(dir_pin, step_pin, m_speed, m_steps, relay_pin[1]),
         stepper.Stepper(dir_pin, step_pin, m_speed, m_steps, relay_pin[2]),
         stepper.Stepper(dir_pin, step_pin, m_speed, m_steps, relay_pin[3]),
     ]
+    ## XXX
+    logger.info("m_list.size={}".format(len(m_list)))
 
 def calculate_steps(now_time, saved_time):
     now_time_value = int(now_time)
@@ -43,16 +47,16 @@ def calculate_steps(now_time, saved_time):
 
 def show_time():
     for motor_num in (3, 2, 1, 0):
-        ##XXX
+        ## XXX
         logger.info("motor_num={}".format(motor_num))
-        logger.info("motors.size={}".format(len(motors)))
+        logger.info("m_list.size={}".format(len(m_list)))
 
         saved_time_str = read_time_str()
         now_time = time.strftime("%H%M")[motor_num]
         saved_time = saved_time_str[motor_num]
         run_steps = calculate_steps(now_time, saved_time)
         if run_steps is not None:
-            motors[motor_num].run(run_steps)
+            m_list[motor_num].run(run_steps)
             hhmm = list(saved_time_str)
             hhmm[motor_num] = now_time
             save_time_str("".join(hhmm))
