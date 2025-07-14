@@ -85,6 +85,6 @@ class Stepper:
         """
         t = (sleep_time - 3) / 1000000  # -3微秒是修正值,测试发现树莓派多消耗了3微秒
         start, end = 0, 0
-        start = time.time()
+        start = time.time() * 1000000
         while end - start < t:
-            end = time.time()
+            end = time.time() * 1000000
