@@ -6,9 +6,10 @@ def test_stepper():
     step_pin = 3
     relay_pin = 19
     speed = 60
-    steps = 10 * 200 * 32
+    steps = 200 * 32
+    run_steps = 10 * 200 * 32
     m1 = stepper.Stepper(dir_pin, step_pin, speed, steps, relay_pin)
-    m1.run(steps)
+    m1.run(run_steps)
 
     GPIO.cleanup()
 
