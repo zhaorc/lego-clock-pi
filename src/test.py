@@ -8,7 +8,7 @@ def test_stepper():
     speed = 30
     steps = 10 * 200 * 32
     m1 = stepper.Stepper(dir_pin, step_pin, speed, steps, relay_pin)
-    m1.run(speed, steps)
+    m1.run(steps)
 
     GPIO.cleanup()
 
