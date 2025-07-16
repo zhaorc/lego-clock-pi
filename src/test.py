@@ -7,7 +7,7 @@ def test_stepper():
     relay_pin = 19
     speed = 60
     steps = 200 * 32
-    run_steps = 10 * 200 * 32
+    run_steps = 1 * 200 * 32
     m1 = stepper.Stepper(dir_pin, step_pin, speed, steps, relay_pin)
     m1.run(run_steps)
 
