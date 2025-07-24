@@ -6,7 +6,8 @@ logger = logging.getLogger(__name__)
 file_name = "/home/pi/lego-clock/time.txt"
 
 m_speed = 30
-m_steps =  int((80 / 21) * (80 / 20) * 200 * 32)
+m_steps =  200 * 32
+rate = (80 / 21) * (80 / 20)
 
 def read_time_str():
     with open(file_name, "r") as f:
@@ -40,7 +41,7 @@ def calculate_steps(now_time, saved_time):
     distance = now_time_value - saved_time_value
     if distance < 0:
         distance += 10
-    return int(m_steps / 10 * distance)
+    return int(rate * m_steps / 10 * distance)
 
 def show_time(m_list):
     for motor_num in (3, 2, 1, 0):
