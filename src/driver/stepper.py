@@ -67,6 +67,7 @@ class Stepper:
             run_steps = -steps
 
         GPIO.output(self.__relay_pin, GPIO.HIGH)
+        GPIO.output(16, GPIO.LOW)
 
         for i in range(run_steps):
             GPIO.output(self.__step_pin, GPIO.HIGH)
