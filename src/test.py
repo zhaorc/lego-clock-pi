@@ -4,7 +4,7 @@ from driver import stepper
 def test_stepper():
     dir_pin = 2
     step_pin = 3
-    relay_pin = 16
+    relay_pin = 19
     speed = 30
     steps = 200 * 32
     run_steps = 5 * 200 * 32
