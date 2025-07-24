@@ -51,6 +51,9 @@ class Stepper:
         GPIO.setup(dir_pin, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(step_pin, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(relay_pin, GPIO.OUT, initial=GPIO.LOW)
+
+        GPIO.setup(16, GPIO.OUT, initial=GPIO.LOW)
+
         self.__sleep_time = 30000000 / speed / steps
 
     def run(self, steps):
@@ -67,7 +70,6 @@ class Stepper:
             run_steps = -steps
 
         GPIO.output(self.__relay_pin, GPIO.HIGH)
-        GPIO.output(16, GPIO.LOW)
 
         for i in range(run_steps):
             GPIO.output(self.__step_pin, GPIO.HIGH)
