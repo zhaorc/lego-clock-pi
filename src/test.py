@@ -4,8 +4,8 @@ from driver import stepper
 def test_stepper():
     dir_pin = 2
     step_pin = 3
-    relay_pin = 20
-    speed = 30
+    relay_pin = 26
+    speed = 20
     steps = 200 * 32
     run_steps = 16 * 200 * 32
     m1 = stepper.Stepper(dir_pin, step_pin, speed, steps, relay_pin)
