@@ -5,7 +5,7 @@ from driver import stepper
 logger = logging.getLogger(__name__)
 file_name = "/home/pi/lego-clock/time.txt"
 
-m_speed = 15
+m_speed = 20
 m_steps =  200 * 32
 rate = (80 / 21) * (80 / 20)
 
