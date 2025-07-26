@@ -7,7 +7,7 @@ file_name = "/home/pi/lego-clock/time.txt"
 
 m_speed = 20
 m_steps =  200 * 32
-rate = (80 / 20) * (80 / 20)
+rate = 15.99 #16
 
 def read_time_str():
     with open(file_name, "r") as f:
