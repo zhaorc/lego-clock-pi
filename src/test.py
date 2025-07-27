@@ -2,8 +2,8 @@ from RPi import GPIO
 from driver import stepper
 
 def test_stepper():
-    dir_pin = 2
-    step_pin = 3
+    dir_pin = 0
+    step_pin = 1
     relay_pin = 20
     speed = 20
     steps = 200 * 32
