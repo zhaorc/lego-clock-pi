@@ -7,7 +7,7 @@ file_name = "/home/pi/lego-clock/time.txt"
 
 m_speed = 20
 m_steps =  200 * 32
-rate = 15.99 #16
+rate = 14.6 #16
 
 def read_time_str():
     with open(file_name, "r") as f:
@@ -21,14 +21,13 @@ def save_time_str(hhmm):
         logger.info("save_time_str={}".format(hhmm))
 
 def init_stepper():
-    dir_pin = 2
-    step_pin = 3
-    relay_pin = [19, 16, 26, 20]
+    dir_pin = [0, 6, 19, 26]
+    step_pin = [1, 12, 16, 20]
     m_list = [
-        stepper.Stepper(dir_pin, step_pin, m_speed, m_steps, relay_pin[0]),
-        stepper.Stepper(dir_pin, step_pin, m_speed, m_steps, relay_pin[1]),
-        stepper.Stepper(dir_pin, step_pin, m_speed, m_steps, relay_pin[2]),
-        stepper.Stepper(dir_pin, step_pin, m_speed, m_steps, relay_pin[3]),
+        stepper.Stepper(dir_pin[0], step_pin[0], m_speed, m_steps),
+        stepper.Stepper(dir_pin[1], step_pin[1], m_speed, m_steps),
+        stepper.Stepper(dir_pin[2], step_pin[2], m_speed, m_steps),
+        stepper.Stepper(dir_pin[3], step_pin[3], m_speed, m_steps),
     ]
 
     return m_list

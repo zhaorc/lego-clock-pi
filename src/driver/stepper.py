@@ -32,10 +32,9 @@ class Stepper:
     __dir_pin = None
     __step_pin = None
     __steps = None
-    __relay_pin = None
     __sleep_time = None  # milli_second
 
-    def __init__(self, dir_pin, step_pin, speed, steps, relay_pin):
+    def __init__(self, dir_pin, step_pin, speed, steps):
         """
         :param dir_pin:
         :param step_pin:
@@ -45,12 +44,11 @@ class Stepper:
         self.__dir_pin = dir_pin
         self.__step_pin = step_pin
         self.__steps = steps
-        self.__relay_pin = relay_pin
+
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(dir_pin, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(step_pin, GPIO.OUT, initial=GPIO.LOW)
-        GPIO.setup(relay_pin, GPIO.OUT, initial=GPIO.LOW)
 
         self.__sleep_time = 30000000 / speed / steps
 
@@ -67,15 +65,14 @@ class Stepper:
             GPIO.output(self.__dir_pin, GPIO.LOW)
             run_steps = -steps
 
-        GPIO.output(self.__relay_pin, GPIO.HIGH)
-
         for i in range(run_steps):
             GPIO.output(self.__step_pin, GPIO.HIGH)
             self.__delay_microseconds(self.__sleep_time)
             GPIO.output(self.__step_pin, GPIO.LOW)
             self.__delay_microseconds(self.__sleep_time)
 
-        GPIO.output(self.__relay_pin, GPIO.LOW)
+        GPIO.output(self.__step_pin, GPIO.LOW)
+        GPIO.output(self.__dir_pin, GPIO.LOW)
 
     @staticmethod
     def __delay_microseconds(sleep_time):
