@@ -6,7 +6,7 @@ import sys
 switch_pin = 17
 steps = 0
 
-def count_steps():
+def count_steps(channel):
     global steps
     steps = steps + 1
 
