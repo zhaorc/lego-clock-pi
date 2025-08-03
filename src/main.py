@@ -48,7 +48,7 @@ def show_time(m_list):
         saved_time_str = read_time_str()
         now_time = time.strftime("%H%M")[motor_num]
         saved_time = saved_time_str[motor_num]
-        distance = calculate_distance(now_time, saved_time)
+        distance = calculate_distance(motor_num, now_time, saved_time)
 
         if distance is not None:
             ## XXX
