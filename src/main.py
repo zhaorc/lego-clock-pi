@@ -10,7 +10,7 @@ m_steps =  200 * 32
 dir_pin = [0, 6, 19, 26]
 step_pin = [1, 12, 16, 20]
 switch_pin = [2, 3, 4, 17]
-direction = [1, 1, -1, 1]
+direction = [1, 1, 1, 1]
 
 def read_time_str():
     with open(file_name, "r") as f:
