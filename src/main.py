@@ -7,6 +7,10 @@ file_name = "/home/pi/lego-clock/time.txt"
 
 m_speed = 20
 m_steps =  200 * 32
+dir_pin = [0, 6, 19, 26]
+step_pin = [1, 12, 16, 20]
+switch_pin = [2, 3, 4, 17]
+direction = [1, 1, -1, 1]
 
 def read_time_str():
     with open(file_name, "r") as f:
@@ -20,9 +24,6 @@ def save_time_str(hhmm):
         logger.info("save_time_str={}".format(hhmm))
 
 def init_stepper():
-    dir_pin = [0, 6, 19, 26]
-    step_pin = [1, 12, 16, 20]
-    switch_pin = [2, 3, 4, 17]
     m_list = [
         stepper.Stepper(dir_pin[0], step_pin[0], switch_pin[0], m_speed, m_steps),
         stepper.Stepper(dir_pin[1], step_pin[1], switch_pin[1], m_speed, m_steps),
@@ -32,7 +33,7 @@ def init_stepper():
 
     return m_list
 
-def calculate_distance(now_time, saved_time):
+def calculate_distance(motor_num, now_time, saved_time):
     now_time_value = int(now_time)
     saved_time_value = int(saved_time)
     if now_time_value == saved_time_value:
@@ -40,7 +41,7 @@ def calculate_distance(now_time, saved_time):
     distance = now_time_value - saved_time_value
     if distance < 0:
         distance += 10
-    return distance
+    return direction[motor_num] * distance
 
 def show_time(m_list):
     for motor_num in (3, 2, 1, 0):
