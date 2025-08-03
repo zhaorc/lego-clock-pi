@@ -31,10 +31,15 @@ class Stepper:
     """
     __dir_pin = None
     __step_pin = None
+    __switch_pin = None
     __steps = None
     __sleep_time = None  # milli_second
+    __distance = 0
 
-    def __init__(self, dir_pin, step_pin, speed, steps):
+    def __count_distance(self, channel):
+        self.__distance += 1
+
+    def __init__(self, dir_pin, step_pin, switch_pin, speed, steps):
         """
         :param dir_pin:
         :param step_pin:
@@ -43,33 +48,38 @@ class Stepper:
         """
         self.__dir_pin = dir_pin
         self.__step_pin = step_pin
+        self.__switch_pin = switch_pin
         self.__steps = steps
 
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(dir_pin, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(step_pin, GPIO.OUT, initial=GPIO.LOW)
-
+        GPIO.setup(switch_pin, GPIO.IN, pull_up_down= GPIO.PUD_UP)
+        GPIO.add_event_detect(switch_pin, GPIO.RISING, callback= self.__count_distance, bouncetime= 100)
         self.__sleep_time = 30000000 / speed / steps
 
-    def run(self, steps):
+    def run(self, distance):
         """
         转steps步
         :param steps: steps>0正转, steps<0反转
         :return:
         """
-        run_steps = steps
-        if steps > 0:
+        self.__distance = 0
+        run_distance = distance
+        if distance > 0:
             GPIO.output(self.__dir_pin, GPIO.HIGH)
         else:
             GPIO.output(self.__dir_pin, GPIO.LOW)
-            run_steps = -steps
+            run_distance = -distance
 
-        for i in range(run_steps):
+        while True:
             GPIO.output(self.__step_pin, GPIO.HIGH)
             self.__delay_microseconds(self.__sleep_time)
             GPIO.output(self.__step_pin, GPIO.LOW)
             self.__delay_microseconds(self.__sleep_time)
+            if self.__distance >= run_distance:
+                break
 
         GPIO.output(self.__step_pin, GPIO.LOW)
         GPIO.output(self.__dir_pin, GPIO.LOW)
