@@ -3,10 +3,10 @@ from driver import stepper
 import time
 
 def test_stepper():
-    dir_pin = 0
-    step_pin = 1
-    switch_pin = 2
-    direction = 1
+    dir_pin = 19
+    step_pin = 16
+    switch_pin = 4
+    direction = -1
     speed = 20
     steps = 200 * 32
     run_distance =1 * direction
