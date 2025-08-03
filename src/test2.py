@@ -7,7 +7,7 @@ switch_pin = 14
 steps = 0
 
 def count_steps(channel):
-    print("now_value={}".format(GPIO.input(channel)))
+    print("now_value={}".format(GPIO.input(switch_pin)))
     global steps
     steps = steps + 1
     print("steps={}".format(steps))
