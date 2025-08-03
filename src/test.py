@@ -1,10 +1,6 @@
 from RPi import GPIO
 from driver import stepper
 import time
-import logging
-
-logger = logging.getLogger(__name__)
-file_name = "/home/pi/lego-clock/time.txt"
 
 def test_stepper():
     dir_pin = 26
