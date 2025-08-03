@@ -3,6 +3,9 @@ from driver import stepper
 import time
 import logging
 
+logger = logging.getLogger(__name__)
+file_name = "/home/pi/lego-clock/time.txt"
+
 def test_stepper():
     dir_pin = 26
     step_pin = 20
@@ -18,6 +21,4 @@ def test_stepper():
     GPIO.cleanup()
 
 if __name__ == "__main__":
-    logger = logging.getLogger(__name__)
-    file_name = "/home/pi/lego-clock/time.txt"
     test_stepper()
