@@ -1,3 +1,4 @@
+import logging
 import time
 from RPi import GPIO
 
@@ -38,6 +39,7 @@ class Stepper:
 
     def __count_distance(self, channel):
         self.__distance += 1
+        logging.info("__distance={}".format(self.__distance))
 
     def __init__(self, dir_pin, step_pin, switch_pin, speed, steps):
         """
