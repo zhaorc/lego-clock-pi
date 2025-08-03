@@ -7,7 +7,7 @@ switch_pin = 14
 steps = 0
 
 def count_steps(channel):
-    #print("now_value={}".format(GPIO.input(switch_pin)))
+    print("now_value={}".format(GPIO.input(switch_pin)))
     global steps
     steps = steps + 1
     #print("steps={}".format(steps))
@@ -22,6 +22,6 @@ if __name__ == "__main__":
     GPIO.add_event_detect(switch_pin, GPIO.FALLING, callback=count_steps, bouncetime=300)
     signal.signal(signal.SIGINT, signal_handler)
     while True:
-        #print("ori_value={}".format(GPIO.input(switch_pin)))
+        print("ori_value={}".format(GPIO.input(switch_pin)))
         print("steps={}".format(steps))
         time.sleep(5)
