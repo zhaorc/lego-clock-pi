@@ -11,7 +11,7 @@ def count_steps(channel):
     global steps
     steps = steps + 1
     time.sleep(1)
-    print("now_value_1={}".format(GPIO.input(switch_pin)))
+    print("now_value_2={}".format(GPIO.input(switch_pin)))
     #print("steps={}".format(steps))
 
 def signal_handler(sig, frame):
