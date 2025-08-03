@@ -40,7 +40,6 @@ class Stepper:
     def __count_distance(self, channel):
         if not GPIO.input(channel):
             self.__distance += 1
-            print("__distance={}".format(self.__distance))
 
     def __init__(self, dir_pin, step_pin, switch_pin, speed, steps):
         """
