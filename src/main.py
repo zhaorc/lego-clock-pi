@@ -1,8 +1,6 @@
-import logging
 import time
 from driver import stepper
 
-logger = logging.getLogger(__name__)
 file_name = "/home/pi/lego-clock/time.txt"
 
 m_speed = 20
@@ -20,9 +18,7 @@ def read_time_str():
 def save_time_str(hhmm):
     with open(file_name,"w") as f:
         f.write(hhmm)
-        ## XXX
-        logger.info("save_time_str={}".format(hhmm))
-
+       
 def init_stepper():
     m_list = [
         stepper.Stepper(dir_pin[0], step_pin[0], switch_pin[0], m_speed, m_steps),
@@ -30,7 +26,6 @@ def init_stepper():
         stepper.Stepper(dir_pin[2], step_pin[2], switch_pin[2], m_speed, m_steps),
         stepper.Stepper(dir_pin[3], step_pin[3], switch_pin[3], m_speed, m_steps),
     ]
-
     return m_list
 
 def calculate_distance(motor_num, now_time, saved_time):
@@ -43,26 +38,22 @@ def calculate_distance(motor_num, now_time, saved_time):
         distance += 10
     return direction[motor_num] * distance
 
-def show_time(m_list):
+def show_time(m_list, saved_time_str):
     for motor_num in (3, 2, 1, 0):
-        saved_time_str = read_time_str()
         now_time = time.strftime("%H%M")[motor_num]
         saved_time = saved_time_str[motor_num]
         distance = calculate_distance(motor_num, now_time, saved_time)
-
         if distance is not None:
-            ## XXX
-            logger.info("motor_num={}, saved_time_str={}, now_time={}, distance={}".format(motor_num, saved_time_str, now_time, distance))
             m_list[motor_num].run(distance)
             hhmm = list(saved_time_str)
             hhmm[motor_num] = now_time
             save_time_str("".join(hhmm))
 
 def main():
-    logging.basicConfig(level=logging.DEBUG)
     m_list = init_stepper()
+    saved_time_str = read_time_str()
     while (True):
-        show_time(m_list)
+        show_time(m_list, saved_time_str)
         time.sleep(1)
 
 if __name__ == "__main__":
