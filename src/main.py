@@ -13,11 +13,13 @@ direction = [1, 1, 1, 1]
 def read_time_str():
     with open(file_name, "r") as f:
         time_str = f.read()
+        f.close()
         return time_str
 
 def save_time_str(hhmm):
     with open(file_name,"w") as f:
         f.write(hhmm)
+        f.close()
        
 def init_stepper():
     m_list = [
