@@ -1,29 +1,8 @@
-from RPi import GPIO
-import signal
-import time
-import sys
 
-switch_pin = 14
-steps = 0
-
-def count_steps(channel):
-    #print("now_value_1={}".format(GPIO.input(switch_pin)))
-    time.sleep(0.001)
-    global steps
-    if not GPIO.input(channel):
-        steps = steps + 1
-        print("steps={}".format(steps))
-
-def signal_handler(sig, frame):
-    GPIO.cleanup()
-    sys.exit(0)
+def show_time(saved_time_str):
+    saved_time_str = "2345"
 
 if __name__ == "__main__":
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(switch_pin, GPIO.IN, pull_up_down= GPIO.PUD_UP)
-    GPIO.add_event_detect(switch_pin, GPIO.FALLING, callback=count_steps, bouncetime=300)
-    signal.signal(signal.SIGINT, signal_handler)
-    while True:
-        #print("ori_value={}".format(GPIO.input(switch_pin)))
-        print("steps={}".format(steps))
-        time.sleep(5)
+    saved_time_str = "0123"
+    show_time(saved_time_str)
+    print(saved_time_str)
