@@ -50,6 +50,7 @@ def show_time(m_list, saved_time):
             hhmm = list(saved_time[0])
             hhmm[motor_num] = now_time
             save_time_str("".join(hhmm))
+            saved_time[0] = hhmm
 
 def main():
     m_list = init_stepper()
