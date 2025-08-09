@@ -40,22 +40,23 @@ def calculate_distance(motor_num, now_time, saved_time):
         distance += 10
     return direction[motor_num] * distance
 
-def show_time(m_list, saved_time_str):
+def show_time(m_list, saved_time):
     for motor_num in (3, 2, 1, 0):
         now_time = time.strftime("%H%M")[motor_num]
-        saved_time = saved_time_str[motor_num]
-        distance = calculate_distance(motor_num, now_time, saved_time)
+        motor_time = saved_time[0][motor_num]
+        distance = calculate_distance(motor_num, now_time, motor_time)
         if distance is not None:
             m_list[motor_num].run(distance)
-            hhmm = list(saved_time_str)
+            hhmm = list(saved_time[0])
             hhmm[motor_num] = now_time
             save_time_str("".join(hhmm))
 
 def main():
     m_list = init_stepper()
     saved_time_str = read_time_str()
+    saved_time =[saved_time_str]
     while (True):
-        show_time(m_list, saved_time_str)
+        show_time(m_list, saved_time)
         time.sleep(1)
 
 if __name__ == "__main__":
