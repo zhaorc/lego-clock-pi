@@ -1,8 +1,9 @@
 
-def show_time(saved_time_str):
-    saved_time_str = "2345"
+def show_time(saved_time):
+    saved_time[0] = "2345"
 
 if __name__ == "__main__":
     saved_time_str = "0123"
-    show_time(saved_time_str)
-    print(saved_time_str)
+    saved_time = [saved_time_str]
+    show_time(saved_time)
+    print(saved_time[0])
