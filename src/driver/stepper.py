@@ -41,9 +41,9 @@ class Stepper:
         value1 = GPIO.input(channel)
         time.sleep(0.001)
         value2 = GPIO.input(channel)
+        print("value1={}, value2=".format(value1, value2))
         if value1 and not value2:
             self.__distance += 1
-            print("_distance={}".format(self.__distance))
 
     def __init__(self, dir_pin, step_pin, switch_pin, speed, steps):
         """
