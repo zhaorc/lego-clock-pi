@@ -38,8 +38,10 @@ class Stepper:
     __distance = 0
 
     def __count_distance(self, channel):
+        value1 = GPIO.input(channel)
         time.sleep(0.001)
-        if not GPIO.input(channel):
+        value2 = GPIO.input(channel)
+        if value1 and not value2:
             self.__distance += 1
             print("_distance={}".format(self.__distance))
 
@@ -60,7 +62,7 @@ class Stepper:
         GPIO.setup(dir_pin, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(step_pin, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(switch_pin, GPIO.IN, pull_up_down= GPIO.PUD_UP)
-        GPIO.add_event_detect(self.__switch_pin, GPIO.FALLING, callback=self.__count_distance, bouncetime=1000)
+        GPIO.add_event_detect(self.__switch_pin, GPIO.FALLING, callback=self.__count_distance, bouncetime=300)
         self.__sleep_time = 30000000 / speed / steps
 
     def run(self, distance):
