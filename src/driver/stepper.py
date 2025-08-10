@@ -39,7 +39,7 @@ class Stepper:
 
     def __count_distance(self, channel):
         value1 = GPIO.input(channel)
-        time.sleep(0.01)
+        time.sleep(0.1)
         value2 = GPIO.input(channel)
         print("value1={}, value2={}".format(value1, value2))
         if value1 and not value2:
