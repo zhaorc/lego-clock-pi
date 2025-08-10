@@ -36,10 +36,9 @@ class Stepper:
     __steps = None
     __sleep_time = None  # milli_second
     __distance = 0
-    __count_flag = False
 
     def __count_distance(self, channel):
-        if self.__count_flag and not GPIO.input(channel):
+        if not GPIO.input(channel):
             self.__distance += 1
             print("_distance={}".format(self.__distance))
 
@@ -60,7 +59,6 @@ class Stepper:
         GPIO.setup(dir_pin, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(step_pin, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(switch_pin, GPIO.IN, pull_up_down= GPIO.PUD_UP)
-        GPIO.add_event_detect(switch_pin, GPIO.FALLING, callback= self.__count_distance, bouncetime= 300)
         self.__sleep_time = 30000000 / speed / steps
 
     def run(self, distance):
@@ -70,14 +68,13 @@ class Stepper:
         :return:
         """
         self.__distance = 0
-        self.__count_flag = True
         run_distance = distance
         if distance > 0:
             GPIO.output(self.__dir_pin, GPIO.HIGH)
         else:
             GPIO.output(self.__dir_pin, GPIO.LOW)
             run_distance = -distance
-
+        GPIO.add_event_detect(self.__switch_pin, GPIO.FALLING, callback=self.__count_distance, bouncetime=300)
         while True:
             GPIO.output(self.__step_pin, GPIO.HIGH)
             self.__delay_microseconds(self.__sleep_time)
@@ -86,7 +83,7 @@ class Stepper:
             if self.__distance >= run_distance:
                 break
 
-        self.__count_flag = False
+        GPIO.remove_event_detect(self.__switch_pin)
         GPIO.output(self.__step_pin, GPIO.LOW)
         GPIO.output(self.__dir_pin, GPIO.LOW)
 
