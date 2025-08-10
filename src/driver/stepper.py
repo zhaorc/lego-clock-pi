@@ -36,9 +36,10 @@ class Stepper:
     __steps = None
     __sleep_time = None  # milli_second
     __distance = 0
+    __count_flag = False
 
     def __count_distance(self, channel):
-        if not GPIO.input(channel):
+        if self.__count_flag and not GPIO.input(channel):
             self.__distance += 1
             print("_distance={}".format(self.__distance))
 
@@ -69,6 +70,7 @@ class Stepper:
         :return:
         """
         self.__distance = 0
+        self.__count_flag = True
         run_distance = distance
         if distance > 0:
             GPIO.output(self.__dir_pin, GPIO.HIGH)
@@ -84,6 +86,7 @@ class Stepper:
             if self.__distance >= run_distance:
                 break
 
+        self.__count_flag = False
         GPIO.output(self.__step_pin, GPIO.LOW)
         GPIO.output(self.__dir_pin, GPIO.LOW)
 
