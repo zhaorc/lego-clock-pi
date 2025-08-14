@@ -1,4 +1,7 @@
 import time
+
+from RPi import GPIO
+
 from driver import stepper
 
 file_name = "/home/pi/lego-clock/time.txt"
@@ -61,4 +64,7 @@ def main():
         time.sleep(1)
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    finally:
+       GPIO.cleanup()
