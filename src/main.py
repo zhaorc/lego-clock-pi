@@ -47,6 +47,8 @@ def show_time(m_list, saved_time):
     for motor_num in (3, 2, 1, 0):
         now_time = time.strftime("%H%M")[motor_num]
         motor_time = saved_time[0][motor_num]
+        if now_time == motor_time:
+            continue
         distance = calculate_distance(motor_num, now_time, motor_time)
         if distance is not None:
             m_list[motor_num].run(distance)
@@ -59,7 +61,7 @@ def main():
     m_list = init_stepper()
     saved_time_str = read_time_str()
     saved_time =[saved_time_str]
-    while (True):
+    while True:
         show_time(m_list, saved_time)
         time.sleep(1)
 
