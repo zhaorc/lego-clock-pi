@@ -9,5 +9,5 @@ if __name__ == "__main__":
         f.write("1234")
         f.flush()
     for i in range(10):
-        save_str(f, i)
+        save_str(f, str(i))
     f.close()
