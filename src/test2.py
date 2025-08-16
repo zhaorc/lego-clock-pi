@@ -1,6 +1,6 @@
 
-def save_str(f):
-    f.write("3456")
+def save_str(f, text):
+    f.write(text)
     f.flush()
 
 if __name__ == "__main__":
@@ -8,4 +8,6 @@ if __name__ == "__main__":
     with open(file_name,"w") as f:
         f.write("1234")
         f.flush()
-    save_str(f)
+    for i in range(10):
+        save_str(f, i)
+    f.close()
