@@ -1,9 +1,11 @@
 
-def show_time(saved_time):
-    saved_time[0] = "2345"
+def save_str(f):
+    f.write("3456")
+    f.flush()
 
 if __name__ == "__main__":
-    saved_time_str = "0123"
-    saved_time = [saved_time_str]
-    show_time(saved_time)
-    print(saved_time[0])
+    file_name = "/home/pi/test.txt"
+    with open(file_name,"w") as f:
+        f.write("1234")
+        f.flush()
+    save_str(f)
