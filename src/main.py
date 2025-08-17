@@ -41,6 +41,7 @@ def calculate_distance(motor_num, now_time, saved_time):
     distance = now_time_value - saved_time_value
     if distance < 0:
         distance += 10
+    print("motor_num={}, now_time={}, saved_time={}, distance={}".format(motor_num, now_time, saved_time, distance))
     return direction[motor_num] * distance
 
 def show_time(m_list, saved_time):
