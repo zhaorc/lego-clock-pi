@@ -12,7 +12,7 @@ dir_pin = [0, 6, 19, 26]
 step_pin = [1, 12, 16, 20]
 switch_pin = [2, 3, 4, 17]
 direction = [1, 1, 1, 1]
-time_of_night = [0000, 6000]
+time_of_night = [800, 900]
 distance_of_night = 5
 
 def read_time_str():
