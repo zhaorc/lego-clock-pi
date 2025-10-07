@@ -6,7 +6,7 @@ from driver import stepper
 
 file_name = "/home/pi/lego-clock/time.txt"
 
-m_speed = 15
+m_speed = [15, 15, 15, 10]
 m_steps =  200 * 128
 dir_pin = [0, 6, 19, 26]
 step_pin = [1, 12, 16, 20]
@@ -26,10 +26,10 @@ def save_time_str(hhmm):
        
 def init_stepper():
     m_list = [
-        stepper.Stepper(dir_pin[0], step_pin[0], switch_pin[0], m_speed, m_steps),
-        stepper.Stepper(dir_pin[1], step_pin[1], switch_pin[1], m_speed, m_steps),
-        stepper.Stepper(dir_pin[2], step_pin[2], switch_pin[2], m_speed, m_steps),
-        stepper.Stepper(dir_pin[3], step_pin[3], switch_pin[3], m_speed, m_steps),
+        stepper.Stepper(dir_pin[0], step_pin[0], switch_pin[0], m_speed[0], m_steps),
+        stepper.Stepper(dir_pin[1], step_pin[1], switch_pin[1], m_speed[1], m_steps),
+        stepper.Stepper(dir_pin[2], step_pin[2], switch_pin[2], m_speed[2], m_steps),
+        stepper.Stepper(dir_pin[3], step_pin[3], switch_pin[3], m_speed[3], m_steps),
     ]
     return m_list
 
