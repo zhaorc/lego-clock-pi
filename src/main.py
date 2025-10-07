@@ -6,7 +6,7 @@ from driver import stepper
 
 file_name = "/home/pi/lego-clock/time.txt"
 
-m_speed = [5, 5, 5, 20]
+m_speed = [5, 5, 5, 30]
 m_steps =  200 * 128
 dir_pin = [0, 6, 19, 26]
 step_pin = [1, 12, 16, 20]
