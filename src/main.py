@@ -6,13 +6,13 @@ from driver import stepper
 
 file_name = "/home/pi/lego-clock/time.txt"
 
-m_speed = [120, 120, 120, 120]
+m_speed = [100, 100, 100, 100]
 m_steps =  200 * 128
 dir_pin = [0, 6, 19, 26]
 step_pin = [1, 12, 16, 20]
 switch_pin = [2, 3, 4, 17]
 direction = [1, 1, 1, 1]
-time_of_night = ["0810", "0900"]
+time_of_night = ["0000", "0600"]
 distance_of_night = 5
 
 def read_time_str():
