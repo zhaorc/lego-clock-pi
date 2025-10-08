@@ -12,7 +12,7 @@ dir_pin = [0, 6, 19, 26]
 step_pin = [1, 12, 16, 20]
 switch_pin = [2, 3, 4, 17]
 direction = [1, 1, 1, 1]
-time_of_night = [800, 900]
+time_of_night = [805, 859]
 distance_of_night = 5
 
 def read_time_str():
@@ -48,13 +48,14 @@ def calculate_distance(motor_num, now_time, saved_time):
 
 def show_time(m_list, saved_time):
     for motor_num in (3, 2, 1, 0):
-        now_time = time.strftime("%H%M")[motor_num]
+        time_str = time.strftime("%H%M")
+        now_time = time_str[motor_num]
         motor_time = saved_time[0][motor_num]
         if now_time == motor_time:
             continue
         distance = calculate_distance(motor_num, now_time, motor_time)
         if distance is not None:
-            if motor_num == 3 and  time_of_night[0] <= int(now_time) <= time_of_night[1] and distance < distance_of_night:
+            if motor_num == 3 and  time_of_night[0] <= int(time_str) <= time_of_night[1] and distance < distance_of_night:
                 return
             m_list[motor_num].run(distance)
             hhmm = list(saved_time[0])
