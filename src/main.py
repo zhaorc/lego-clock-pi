@@ -55,7 +55,6 @@ def show_time(m_list, saved_time):
             continue
         distance = calculate_distance(motor_num, now_time, motor_time)
         if distance is not None:
-
             if motor_num == 3 and distance < distance_of_night:
                 if int(time_of_night[0]) < int(time_of_night[1]) and  int(time_of_night[0]) < int(time_str) < int(time_of_night[1]):
                     return
