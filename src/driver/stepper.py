@@ -1,4 +1,3 @@
-import logging
 import time
 from RPi import GPIO
 
@@ -36,7 +35,7 @@ class Stepper:
     __steps = None
     __sleep_time = None  # milli_second
     __distance = 0
-    __max_run_time = None #
+    __max_run_time = 10 #
 
     def __count_distance(self, channel):
         value1 = GPIO.input(channel)
@@ -65,7 +64,6 @@ class Stepper:
         GPIO.setup(switch_pin, GPIO.IN, pull_up_down= GPIO.PUD_UP)
         #GPIO.add_event_detect(self.__switch_pin, GPIO.FALLING, callback=self.__count_distance, bouncetime=300)
         self.__sleep_time = 30000000 / speed / steps
-        self.__max_run_time = 60 / speed * 10
 
     def run(self, distance):
         """
