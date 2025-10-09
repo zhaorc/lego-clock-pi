@@ -87,7 +87,7 @@ class Stepper:
             self.__delay_microseconds(self.__sleep_time)
             GPIO.output(self.__step_pin, GPIO.LOW)
             self.__delay_microseconds(self.__sleep_time)
-            if self.__distance >= run_distance or time.time() - start_time > max_run_time:
+            if self.__distance >= run_distance or time.time() - start_time > self.__max_run_time:
                 break
 
         GPIO.output(self.__step_pin, GPIO.LOW)
