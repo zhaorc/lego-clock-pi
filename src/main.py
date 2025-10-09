@@ -60,10 +60,6 @@ def show_time(m_list, saved_time):
             continue
         distance = calculate_distance(motor_num, now_time, motor_time)
         if distance is not None:
-            hhmm = list(saved_time[0])
-            hhmm[motor_num] = now_time
-            save_time_str("".join(hhmm))
-            saved_time[0] = hhmm
             if motor_num == 3 and distance < distance_of_night:
                 if int(time_of_night[0]) < int(time_of_night[1]) and  int(time_of_night[0]) < int(time_str) < int(time_of_night[1]):
                     return
@@ -72,7 +68,10 @@ def show_time(m_list, saved_time):
             if (motor_num == 3 or motor_num == 2) and workday_flag and distance < distance_of_workday and int(time_of_workday[0]) < int(time_str) < int(time_of_workday[1]):
                 return
             m_list[motor_num].run(distance)
-
+            hhmm = list(saved_time[0])
+            hhmm[motor_num] = now_time
+            save_time_str("".join(hhmm))
+            saved_time[0] = hhmm
 
 def main():
     m_list = init_stepper()
