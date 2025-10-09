@@ -13,9 +13,9 @@ dir_pin = [0, 6, 19, 26]
 step_pin = [1, 12, 16, 20]
 switch_pin = [2, 3, 4, 17]
 direction = [1, 1, 1, 1]
-time_of_night = ["2330", "0600"]
+time_of_night = ["2330", "0630"]
 distance_of_night = 10
-time_of_workday = ["0800", "2000"]
+time_of_workday = ["2200", "2300"]
 distance_of_workday = 60
 
 def read_time_str():
@@ -51,6 +51,7 @@ def calculate_distance(motor_num, now_time, saved_time):
 
 def show_time(m_list, saved_time):
     workday_flag = chinese_calendar.is_workday(datetime.date.today())
+    print("workday_flag={}".format(workday_flag))
     for motor_num in (3, 2, 1, 0):
         time_str = time.strftime("%H%M")
         now_time = time_str[motor_num]
