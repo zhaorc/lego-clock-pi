@@ -15,7 +15,7 @@ switch_pin = [2, 3, 4, 17]
 direction = [1, 1, 1, 1]
 time_of_night = ["2330", "0630"]
 distance_of_night = 10
-time_of_workday = ["2200", "2300"]
+time_of_workday = ["0800", "2300"]
 distance_of_workday = 10
 
 def read_time_str():
