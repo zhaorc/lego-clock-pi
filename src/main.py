@@ -1,7 +1,8 @@
 import time
+import datetime
+import chinese_calendar
 
 from RPi import GPIO
-
 from driver import stepper
 
 file_name = "/home/pi/lego-clock/time.txt"
@@ -14,6 +15,8 @@ switch_pin = [2, 3, 4, 17]
 direction = [1, 1, 1, 1]
 time_of_night = ["2330", "0600"]
 distance_of_night = 10
+time_of_workday = ["0800", "2000"]
+distance_of_workday = 60
 
 def read_time_str():
     with open(file_name, "r") as f:
@@ -47,6 +50,7 @@ def calculate_distance(motor_num, now_time, saved_time):
     return direction[motor_num] * distance
 
 def show_time(m_list, saved_time):
+    workday_flag = chinese_calendar.is_workday(datetime.date.today())
     for motor_num in (3, 2, 1, 0):
         time_str = time.strftime("%H%M")
         now_time = time_str[motor_num]
@@ -60,6 +64,8 @@ def show_time(m_list, saved_time):
                     return
                 if int(time_of_night[0]) > int(time_of_night[1]) and (int(time_of_night[0]) < int(time_str) < 2359 or 0 < int(time_str) < int(time_of_night[1])):
                     return
+            if motor_num == 3 and workday_flag and distance < distance_of_workday and int(time_of_workday[0]) < int(time_str) < int(time_of_workday[1]):
+                return;
             m_list[motor_num].run(distance)
             hhmm = list(saved_time[0])
             hhmm[motor_num] = now_time
