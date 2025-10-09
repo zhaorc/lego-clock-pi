@@ -36,6 +36,7 @@ class Stepper:
     __steps = None
     __sleep_time = None  # milli_second
     __distance = 0
+    __max_run_time = None #
 
     def __count_distance(self, channel):
         value1 = GPIO.input(channel)
@@ -64,6 +65,7 @@ class Stepper:
         GPIO.setup(switch_pin, GPIO.IN, pull_up_down= GPIO.PUD_UP)
         #GPIO.add_event_detect(self.__switch_pin, GPIO.FALLING, callback=self.__count_distance, bouncetime=300)
         self.__sleep_time = 30000000 / speed / steps
+        self.__max_run_time = 2 * self.__sleep_time * steps * 2 / 1000000
 
     def run(self, distance):
         """
@@ -79,12 +81,13 @@ class Stepper:
             GPIO.output(self.__dir_pin, GPIO.LOW)
             run_distance = -distance
         GPIO.add_event_detect(self.__switch_pin, GPIO.FALLING, callback=self.__count_distance, bouncetime=300)
+        start_time = time.time()
         while True:
             GPIO.output(self.__step_pin, GPIO.HIGH)
             self.__delay_microseconds(self.__sleep_time)
             GPIO.output(self.__step_pin, GPIO.LOW)
             self.__delay_microseconds(self.__sleep_time)
-            if self.__distance >= run_distance:
+            if self.__distance >= run_distance or time.time() - start_time > max_run_time:
                 break
 
         GPIO.output(self.__step_pin, GPIO.LOW)
