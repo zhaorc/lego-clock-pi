@@ -73,6 +73,7 @@ class Stepper:
         :param steps: steps>0正转, steps<0反转
         :return:
         """
+        print("max_run_time={}".format(self.__max_run_time))
         self.__distance = 0
         run_distance = distance
         if distance > 0:
