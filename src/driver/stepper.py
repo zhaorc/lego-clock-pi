@@ -35,7 +35,7 @@ class Stepper:
     __steps = None
     __sleep_time = None  # milli_second
     __distance = 0
-    __max_run_time = 10 #
+    __max_run_time = 3 #
 
     def __count_distance(self, channel):
         value1 = GPIO.input(channel)
