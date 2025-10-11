@@ -16,7 +16,7 @@ direction = [1, 1, 1, 1]
 time_of_night = ["2330", "0630"]
 distance_of_night = 10
 time_of_workday = ["0800", "2000"]
-distance_of_workday = 10
+distance_of_workday = 3
 
 def read_time_str():
     with open(file_name, "r") as f:
