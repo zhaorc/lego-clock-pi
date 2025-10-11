@@ -50,8 +50,6 @@ def calculate_distance(motor_num, now_time, saved_time):
     return direction[motor_num] * distance
 
 def show_time(m_list, saved_time):
-    workday_flag = chinese_calendar.is_workday(datetime.date.today())
-    print("workday_flag={}".format(workday_flag))
     for motor_num in (3, 2, 1, 0):
         time_str = time.strftime("%H%M")
         now_time = time_str[motor_num]
@@ -60,18 +58,27 @@ def show_time(m_list, saved_time):
             continue
         distance = calculate_distance(motor_num, now_time, motor_time)
         if distance is not None:
-            if motor_num == 3 and distance < distance_of_night:
-                if int(time_of_night[0]) < int(time_of_night[1]) and  int(time_of_night[0]) < int(time_str) < int(time_of_night[1]):
-                    return
-                if int(time_of_night[0]) > int(time_of_night[1]) and (int(time_of_night[0]) < int(time_str) < 2359 or 0 < int(time_str) < int(time_of_night[1])):
-                    return
-            if (motor_num == 3 or motor_num == 2) and workday_flag and distance < distance_of_workday and int(time_of_workday[0]) < int(time_str) < int(time_of_workday[1]):
+            if motor_num == 3 and distance < distance_of_night and is_night_time():
+                return
+            if (motor_num == 3 or motor_num == 2) and distance < distance_of_workday and is_workday():
                 return
             m_list[motor_num].run(distance)
             hhmm = list(saved_time[0])
             hhmm[motor_num] = now_time
             save_time_str("".join(hhmm))
             saved_time[0] = hhmm
+
+def is_night_time():
+    time_str = time.strftime("%H%M")
+    if int(time_of_night[0]) < int(time_of_night[1]) and  int(time_of_night[0]) < int(time_str) < int(time_of_night[1]):
+        return True
+    if int(time_of_night[0]) > int(time_of_night[1]) and (int(time_of_night[0]) < int(time_str) < 2359 or 0 < int(time_str) < int(time_of_night[1])):
+        return True
+    return False
+
+def is_workday():
+    workday_flag = chinese_calendar.is_workday(datetime.date.today())
+    return workday_flag and int(time_of_workday[0]) < int(time_str) < int(time_of_workday[1])
 
 def main():
     m_list = init_stepper()
