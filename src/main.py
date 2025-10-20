@@ -16,7 +16,7 @@ direction = [1, 1, 1, 1]
 time_of_night = ["2330", "0630"]
 distance_of_night = 10
 time_of_workday = ["0800", "2000"]
-distance_of_workday = 3
+distance_of_workday = 30
 
 def read_time_str():
     with open(file_name, "r") as f:
@@ -79,7 +79,8 @@ def is_night_time():
 def is_workday():
     time_str = time.strftime("%H%M")
     workday_flag = chinese_calendar.is_workday(datetime.date.today())
-    return workday_flag and int(time_of_workday[0]) < int(time_str) < int(time_of_workday[1])
+    #return workday_flag and int(time_of_workday[0]) < int(time_str) < int(time_of_workday[1])
+    return False
 
 def main():
     m_list = init_stepper()
