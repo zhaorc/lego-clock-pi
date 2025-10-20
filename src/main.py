@@ -79,8 +79,7 @@ def is_night_time():
 def is_workday():
     time_str = time.strftime("%H%M")
     workday_flag = chinese_calendar.is_workday(datetime.date.today())
-    #return workday_flag and int(time_of_workday[0]) < int(time_str) < int(time_of_workday[1])
-    return False
+    return workday_flag and int(time_of_workday[0]) < int(time_str) < int(time_of_workday[1])
 
 def main():
     m_list = init_stepper()
