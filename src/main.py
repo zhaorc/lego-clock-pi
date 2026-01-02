@@ -77,7 +77,7 @@ def is_night_time():
     return False
 
 def is_workday():
-    return True
+    return False
     #time_str = time.strftime("%H%M")
     #workday_flag = chinese_calendar.is_workday(datetime.date.today())
     #return workday_flag and int(time_of_workday[0]) < int(time_str) < int(time_of_workday[1])
