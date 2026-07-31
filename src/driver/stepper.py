@@ -61,6 +61,8 @@ class Stepper:
         if current_state == GPIO.HIGH:
             self.__distance += 1
 
+        print("__distance={}".format(self.__distance))
+
         # value1 = GPIO.input(channel)
         # time.sleep(0.001)
         # value2 = GPIO.input(channel)
