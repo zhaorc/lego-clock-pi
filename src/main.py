@@ -68,11 +68,11 @@ def show_time(m_list, saved_time):
             saved_time[0] = hhmm
 
 def is_night_time():
-    time_str = time.strftime("%H%M")
-    if int(time_of_night[0]) < int(time_of_night[1]) and  int(time_of_night[0]) < int(time_str) < int(time_of_night[1]):
-        return True
-    if int(time_of_night[0]) > int(time_of_night[1]) and (int(time_of_night[0]) < int(time_str) < 2359 or 0 < int(time_str) < int(time_of_night[1])):
-        return True
+    # time_str = time.strftime("%H%M")
+    # if int(time_of_night[0]) < int(time_of_night[1]) and  int(time_of_night[0]) < int(time_str) < int(time_of_night[1]):
+    #     return True
+    # if int(time_of_night[0]) > int(time_of_night[1]) and (int(time_of_night[0]) < int(time_str) < 2359 or 0 < int(time_str) < int(time_of_night[1])):
+    #     return True
     return False
 
 def is_workday():
