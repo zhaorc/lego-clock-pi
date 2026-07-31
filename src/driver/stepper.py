@@ -83,7 +83,7 @@ class Stepper:
         GPIO.setup(dir_pin, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(step_pin, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(switch_pin, GPIO.IN, pull_up_down= GPIO.PUD_UP)
-        GPIO.add_event_detect(self.__switch_pin, GPIO.HIGH, callback=self.__count_distance, bouncetime=self.__DEBOUNCE_TIME)
+        GPIO.add_event_detect(self.__switch_pin, GPIO.RISING, callback=self.__count_distance, bouncetime=self.__DEBOUNCE_TIME)
         self.__sleep_time = 30000000 / speed / steps
 
     def run(self, distance):
