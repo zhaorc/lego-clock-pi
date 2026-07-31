@@ -59,7 +59,7 @@ class Stepper:
         self.__last_state = current_state
 
         # 判断事件类型
-        if current_state == GPIO.HIGH:
+        if current_state == GPIO.LOW:
             self.__distance += 1
 
         print("current_state={}, last_state={},distance={}".format(current_state, self.__last_state, self.__distance))
