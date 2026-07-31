@@ -41,8 +41,6 @@ class Stepper:
     __last_time = 0
 
     def __count_distance(self, channel):
-        global __last_time
-        global __last_time
         current_time = time.time()
         # 软件防抖
         # if current_time - self. __last_time < self.__DEBOUNCE_TIME / 1000.0:
