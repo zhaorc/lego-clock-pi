@@ -39,6 +39,7 @@ class Stepper:
     __DEBOUNCE_TIME = 100
     __count = 0
     __last_time = 0
+    __last_state = None
 
     def __count_distance(self, channel):
         current_time = time.time()
@@ -47,17 +48,17 @@ class Stepper:
             return
 
         # 读取当前状态
-        # current_state = GPIO.input(channel)
+        current_state = GPIO.input(channel)
 
         # 检查状态是否真的变化了
-        # if current_state == last_state:
-        #     return
+        if current_state == self.__last_state:
+            return
 
         self.__last_time = current_time
 
         # 判断事件类型
-        # if current_state == GPIO.LOW:
-        self.__distance += 1
+        if current_state == GPIO.HIGH:
+            self.__distance += 1
 
         # value1 = GPIO.input(channel)
         # time.sleep(0.001)
@@ -83,7 +84,7 @@ class Stepper:
         GPIO.setup(dir_pin, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(step_pin, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(switch_pin, GPIO.IN, pull_up_down= GPIO.PUD_UP)
-        GPIO.add_event_detect(self.__switch_pin, GPIO.RISING, callback=self.__count_distance, bouncetime=self.__DEBOUNCE_TIME)
+        GPIO.add_event_detect(self.__switch_pin, GPIO.BOTH, callback=self.__count_distance, bouncetime=self.__DEBOUNCE_TIME)
         self.__sleep_time = 30000000 / speed / steps
 
     def run(self, distance):
