@@ -45,8 +45,8 @@ class Stepper:
         global __last_time
         current_time = time.time()
         # 软件防抖
-        if current_time - self. __last_time < self.__DEBOUNCE_TIME / 1000.0:
-            return
+        # if current_time - self. __last_time < self.__DEBOUNCE_TIME / 1000.0:
+        #     return
 
         # 读取当前状态
         # current_state = GPIO.input(channel)
@@ -55,7 +55,7 @@ class Stepper:
         # if current_state == last_state:
         #     return
 
-        self.__last_time = current_time
+        # self.__last_time = current_time
 
         # 判断事件类型
         # if current_state == GPIO.LOW:
