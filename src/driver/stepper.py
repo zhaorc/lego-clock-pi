@@ -99,6 +99,8 @@ class Stepper:
         """
         print("max_run_time={}".format(self.__max_run_time))
         self.__distance = 0
+        self.__last_time = 0
+        self.__last_state = None
         run_distance = distance
         if distance > 0:
             GPIO.output(self.__dir_pin, GPIO.HIGH)
