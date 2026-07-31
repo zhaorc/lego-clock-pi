@@ -36,14 +36,35 @@ class Stepper:
     __sleep_time = None  # milli_second
     __distance = 0
     __max_run_time = 10 #
+    __DEBOUNCE_TIME = 100
 
     def __count_distance(self, channel):
-        value1 = GPIO.input(channel)
-        time.sleep(0.001)
-        value2 = GPIO.input(channel)
-        #print("value1={}, value2={}".format(value1, value2))
-        if not value1 and not value2:
+        global count, last_time, last_state
+        current_time = time.time()
+        # 软件防抖
+        if current_time - last_time < self.__DEBOUNCE_TIME / 1000.0:
+            return
+
+        # 读取当前状态
+        current_state = GPIO.input(channel)
+
+        # 检查状态是否真的变化了
+        if current_state == last_state:
+            return
+
+        last_time = current_time
+        last_state = current_state
+
+        # 判断事件类型
+        if current_state == GPIO.LOW:
             self.__distance += 1
+
+        # value1 = GPIO.input(channel)
+        # time.sleep(0.001)
+        # value2 = GPIO.input(channel)
+        # #print("value1={}, value2={}".format(value1, value2))
+        # if not value1 and not value2:
+        #     self.__distance += 1
 
     def __init__(self, dir_pin, step_pin, switch_pin, speed, steps):
         """
@@ -62,7 +83,7 @@ class Stepper:
         GPIO.setup(dir_pin, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(step_pin, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(switch_pin, GPIO.IN, pull_up_down= GPIO.PUD_UP)
-        #GPIO.add_event_detect(self.__switch_pin, GPIO.FALLING, callback=self.__count_distance, bouncetime=300)
+        GPIO.add_event_detect(self.__switch_pin, GPIO.BOTH, callback=self.__count_distance, bouncetime=self.__DEBOUNCE_TIME)
         self.__sleep_time = 30000000 / speed / steps
 
     def run(self, distance):
@@ -79,7 +100,7 @@ class Stepper:
         else:
             GPIO.output(self.__dir_pin, GPIO.LOW)
             run_distance = -distance
-        GPIO.add_event_detect(self.__switch_pin, GPIO.FALLING, callback=self.__count_distance, bouncetime=300)
+        # GPIO.add_event_detect(self.__switch_pin, GPIO.FALLING, callback=self.__count_distance, bouncetime=300)
         start_time = time.time()
         while True:
             GPIO.output(self.__step_pin, GPIO.HIGH)

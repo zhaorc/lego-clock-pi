@@ -1,6 +1,5 @@
 import time
 import datetime
-import chinese_calendar
 
 from RPi import GPIO
 from driver import stepper
