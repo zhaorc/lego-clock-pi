@@ -56,6 +56,7 @@ class Stepper:
             return
 
         self.__last_time = current_time
+        self.__last_state = current_state
 
         # 判断事件类型
         if current_state == GPIO.HIGH:
