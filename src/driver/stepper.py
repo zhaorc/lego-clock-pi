@@ -37,23 +37,24 @@ class Stepper:
     __distance = 0
     __max_run_time = 10 #
     __DEBOUNCE_TIME = 100
+    __count = 0
+    __last_time = 0
 
     def __count_distance(self, channel):
-        global count, last_time, last_state
+        global __last_time
         current_time = time.time()
         # 软件防抖
-        if current_time - last_time < self.__DEBOUNCE_TIME / 1000.0:
+        if current_time - __last_time < self.__DEBOUNCE_TIME / 1000.0:
             return
 
         # 读取当前状态
-        current_state = GPIO.input(channel)
+        # current_state = GPIO.input(channel)
 
         # 检查状态是否真的变化了
         # if current_state == last_state:
         #     return
 
-        last_time = current_time
-        last_state = current_state
+        __last_time = current_time
 
         # 判断事件类型
         # if current_state == GPIO.LOW:
