@@ -40,8 +40,11 @@ class Stepper:
     __count = 0
     __last_time = 0
     __last_state = None
+    __start_time = 0;
 
     def __count_distance(self, channel):
+        if self.__start_time == 0:
+            self.__start_time = time.time()
         current_time = time.time()
         # print("current_time={}, last_time={}, delta={}".format(current_time,self.__last_time,current_time-self.__last_time))
         if current_time -  self.__last_time < self.__DEBOUNCE_TIME / 1000.0:
@@ -52,9 +55,9 @@ class Stepper:
             return
         self.__last_time = current_time
         self.__last_state = current_state
-        if current_state == GPIO.LOW:
+        if current_state == GPIO.LOW and current_time - self.__start_time > 0.4:
             self.__distance += 1
-        print("current_state={}, last_state={},distance={}".format(current_state, self.__last_state, self.__distance))
+        print("current_state={}, last_state={},distance={},run_time={}".format(current_state, self.__last_state, self.__distance, current_time - self.__start_time))
 
     def __init__(self, dir_pin, step_pin, switch_pin, speed, steps):
         """
@@ -85,6 +88,7 @@ class Stepper:
         print("max_run_time={}".format(self.__max_run_time))
         self.__distance = 0
         self.__last_time = 0
+        self.__start_time = 0;
         self.__last_state = None
         run_distance = distance
         if distance > 0:
